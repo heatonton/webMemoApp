@@ -52,4 +52,6 @@
     return firstLine || '無題';
   };
 
+  const formatDate = (timestamp) => new Date(timestamp).toLocaleString();
+
 }
