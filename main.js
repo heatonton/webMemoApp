@@ -20,6 +20,9 @@
   // memoArea.addEventListener('wheel', () => {
   //   memoArea.dispatchEvent(new Event('mousemove'));
   // });
+  const escapeHtml = (str) => {
+    const map = {'&': }
+  };
 
   const elements = {
     memoList: document.querySelector('ul'),
@@ -53,5 +56,33 @@
   };
 
   const formatDate = (timestamp) => new Date(timestamp).toLocaleString();
+
+  const renderList = () => {
+    const keyword = (elements.search.value || '').toLowerCase();
+    const view = [...notes].sort((a, b) => {
+      return b.updateAt - a.updateAt;
+    }).filter((note) => getTitle(note.title, note.body).toLowerCase().includes(keyword));
+
+    elements.memoList.innerHTML = '';
+    view.forEach((note) => {
+      const li = document.createElement('li');
+      li.dataset.id = note.id;
+      li.tabIndex = 0;
+      const title = getTitle(note.title, note.body);
+      const created = formatDate(note.createdAt);
+
+      li.innerHTML = `
+        <div class="noteRow">
+          <div class="title">
+            ${escapeHtml(title)}
+          </div>
+          <div class="meta">
+            作成: ${escapeHtml(created)}
+          </div>
+        </div>
+      `;
+    });
+
+  }
 
 }
