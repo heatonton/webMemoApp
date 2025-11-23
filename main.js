@@ -21,7 +21,16 @@
   //   memoArea.dispatchEvent(new Event('mousemove'));
   // });
   const escapeHtml = (str) => {
-    const map = {'&': }
+    const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#39;',
+    };
+    return String(str).replace(/[&<>"']/g, (match) => {
+      return map[match];
+    });
   };
 
   const elements = {
@@ -81,8 +90,44 @@
           </div>
         </div>
       `;
+
+      if (note.id === activeId) {
+        li.classList.add('active');
+      }
+      li.addEventListener('click', () => {
+        openNote(note.id);
+      });
+      elements.memoList.appendChild(li);
+    });
+  };
+
+  const openNote = (id) => {
+    const note = notes.find((note) => {
+      return note.id === id;
     });
 
-  }
+    if (!note) return;
+    activeId = id;
+
+    elements.title.value = note.title || '';
+    elements.body.value = note.body || '';
+
+    renderList();
+  };
+
+  const createNote = () => {
+    const now = Date.now();
+    const newNote = {
+      id: String(now),
+      title: '',
+      body: '',
+      createdAt: now,
+      updatedAt: now,
+    };
+
+    notes.unshift(newNote);
+    saveNotes(notes);
+    openNote(newNote.id);
+  };
 
 }
