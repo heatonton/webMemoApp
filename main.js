@@ -1,25 +1,5 @@
 'use strict';
 {
-  // const addBtn = document.getElementById('add-btn');
-  // const memoArea = document.getElementById('memo-area');
-  // const closeBtn = document.getElementById('close-btn');
-  // const body = document.querySelector('body');
-
-  // addBtn.addEventListener('click', () => {
-  //   memoArea.classList.add('active');
-  //   addBtn.classList.add('hide');
-  //   body.classList.add('no-scroll');
-  // });
-
-  // closeBtn.addEventListener('click', () => {
-  //   memoArea.classList.remove('active');
-  //   addBtn.classList.remove('hide');
-  //   body.classList.remove('no-scroll');
-  // });
-
-  // memoArea.addEventListener('wheel', () => {
-  //   memoArea.dispatchEvent(new Event('mousemove'));
-  // });
   const escapeHtml = (str) => {
     const map = {
       '&': '&amp;',
@@ -69,7 +49,7 @@
   const renderList = () => {
     const keyword = (elements.search.value || '').toLowerCase();
     const view = [...notes].sort((a, b) => {
-      return b.updateAt - a.updateAt;
+      return b.updatedAt - a.updatedAt;
     }).filter((note) => getTitle(note.title, note.body).toLowerCase().includes(keyword));
 
     elements.memoList.innerHTML = '';
@@ -79,6 +59,7 @@
       li.tabIndex = 0;
       const title = getTitle(note.title, note.body);
       const created = formatDate(note.createdAt);
+      const updated = formatDate(note.updatedAt);
 
       li.innerHTML = `
         <div class="noteRow">
@@ -86,7 +67,8 @@
             ${escapeHtml(title)}
           </div>
           <div class="meta">
-            作成: ${escapeHtml(created)}
+            作成: ${escapeHtml(created)}<br>
+            更新: ${escapeHtml(updated)}
           </div>
         </div>
       `;
@@ -128,6 +110,27 @@
     notes.unshift(newNote);
     saveNotes(notes);
     openNote(newNote.id);
+  };
+
+  const saveMemo = () => {
+    if (!activeId) return createNote();
+    const idx = notes.findIndex((note) => {
+      return note.id === activeId;
+    });
+    if (idx === -1) return;
+
+    const title = elements.title.value;
+    const body = elements.body.value;
+    notes[idx] = {
+      ...notes[idx],
+      title: title,
+      body: body,
+      updatedAt: Date.now(),
+    };
+    notes[idx].title = getTitle(notes[idx].title, notes[idx].body);
+
+    saveNotes(notes);
+    renderList();
   };
 
 }
