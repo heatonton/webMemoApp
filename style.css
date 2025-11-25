@@ -81,6 +81,14 @@ li {
   position: relative;
 }
 
+.title {
+  font-weight: bold;
+  padding: 0.25rem 0.25rem;
+}
+
+.meta {
+  font-size: 0.75rem;
+}
 
 #add-btn {
   position: fixed;
@@ -118,7 +126,6 @@ li {
   margin: 0 auto;
   transform: translateY(-100%);
   z-index: 2;
-  transition: transform 0.1s;
   background: white;
 }
 
@@ -155,6 +162,21 @@ li {
   transform: scale(1.2);
 }
 
+#save-notice {
+  position: fixed;
+  top: 10%;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: aquamarine;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+#save-notice.display {
+  opacity: 1;
+}
+
 @media (min-width: 800px) {
   body {
     display: flex;
@@ -162,7 +184,7 @@ li {
   }
 
   #add-btn {
-    display: none;
+    position: static;
   }
 
   .memo-list-container {

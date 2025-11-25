@@ -14,19 +14,22 @@
   };
 
   const elements = {
+    memoArea: document.getElementById('memo-area'),
     memoList: document.querySelector('ul'),
     memoTitle: document.getElementById('memo-title'),
     memoContent: document.getElementById('memo-content'),
+    closeBtn: document.getElementById('close-btn'),
     saveBtn: document.getElementById('save-btn'),
     addBtn: document.getElementById('add-btn'),
     deleteBtn: document.getElementById('delete-btn'),
     search: document.getElementById('search'),
+    saveNotice: document.getElementById('save-notice'),
   }
 
   const STORAGE_KEY ='webMemoApp.notes';
 
   const loadNotes = () => {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || []);
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
   };
 
   const saveNotes = (notes) => {
@@ -36,11 +39,11 @@
   let notes = loadNotes();
   let activeId = null;
 
-  const getTitle = (title, body) => {
+  const getTitle = (title, content) => {
     if (title && title.trim()) {
       return title.trim();
     }
-    const firstLine = (body || '').split(/\r?\n/)[0].trim();
+    const firstLine = (content || '').split(/\r?\n/)[0].trim();
     return firstLine || '無題';
   };
 
@@ -50,19 +53,19 @@
     const keyword = (elements.search.value || '').toLowerCase();
     const view = [...notes].sort((a, b) => {
       return b.updatedAt - a.updatedAt;
-    }).filter((note) => getTitle(note.title, note.body).toLowerCase().includes(keyword));
+    }).filter((note) => getTitle(note.title, note.content).toLowerCase().includes(keyword));
 
     elements.memoList.innerHTML = '';
     view.forEach((note) => {
       const li = document.createElement('li');
       li.dataset.id = note.id;
       li.tabIndex = 0;
-      const title = getTitle(note.title, note.body);
+      const title = getTitle(note.title, note.content);
       const created = formatDate(note.createdAt);
       const updated = formatDate(note.updatedAt);
 
       li.innerHTML = `
-        <div class="noteRow">
+        <div class="note-row">
           <div class="title">
             ${escapeHtml(title)}
           </div>
@@ -70,8 +73,12 @@
             作成: ${escapeHtml(created)}<br>
             更新: ${escapeHtml(updated)}
           </div>
+          <button class="icon-btn list-delete-btn">
+            <img src="images/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+          </button>
         </div>
       `;
+      
 
       if (note.id === activeId) {
         li.classList.add('active');
@@ -79,9 +86,13 @@
       li.addEventListener('click', () => {
         openNote(note.id);
       });
+      
       elements.memoList.appendChild(li);
+      elements.listDeleteBtn = document.querySelector('.list-delete-btn');
     });
   };
+
+  
 
   const openNote = (id) => {
     const note = notes.find((note) => {
@@ -91,8 +102,9 @@
     if (!note) return;
     activeId = id;
 
-    elements.title.value = note.title || '';
-    elements.body.value = note.body || '';
+    elements.memoTitle.value = note.title || '';
+    elements.memoContent.value = note.content || '';
+    elements.memoArea.classList.add('active');
 
     renderList();
   };
@@ -102,7 +114,7 @@
     const newNote = {
       id: String(now),
       title: '',
-      body: '',
+      content: '',
       createdAt: now,
       updatedAt: now,
     };
@@ -119,18 +131,53 @@
     });
     if (idx === -1) return;
 
-    const title = elements.title.value;
-    const body = elements.body.value;
+    const title = elements.memoTitle.value;
+    const content = elements.memoContent.value;
     notes[idx] = {
       ...notes[idx],
       title: title,
-      body: body,
+      content: content,
       updatedAt: Date.now(),
     };
-    notes[idx].title = getTitle(notes[idx].title, notes[idx].body);
 
     saveNotes(notes);
     renderList();
   };
 
+  const deleteNote = () => {
+    if (confirm('メモを削除しますか？')) {
+      notes = notes.filter((note) => {
+        return note.id !== activeId;
+      });
+  
+      saveNotes(notes);
+      renderList();
+      clear();
+    }
+  };
+
+  const clear = () => {
+    elements.memoTitle.value = '';
+    elements.memoContent.value = '';
+    elements.memoArea.classList.remove('active');
+  };
+
+  elements.addBtn.addEventListener('click', () => {
+    elements.memoArea.classList.add('active');
+  });
+  elements.addBtn.addEventListener('click', createNote);
+  elements.closeBtn.addEventListener('click', clear);
+  elements.saveBtn.addEventListener('click', saveMemo);
+  elements.saveBtn.addEventListener('click', () => {
+    elements.saveNotice.classList.add('display');
+    setTimeout(() => {
+      elements.saveNotice.classList.remove('display');
+    }, 1000);
+  });
+  elements.search.addEventListener('input', renderList);
+  elements.deleteBtn.addEventListener('click', deleteNote);
+  elements.listDeleteBtn.addEventListener('click', deleteNote);
+
+  
+  renderList();
 }
