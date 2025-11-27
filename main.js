@@ -59,7 +59,6 @@
     view.forEach((note) => {
       const li = document.createElement('li');
       li.dataset.id = note.id;
-      li.tabIndex = 0;
       const title = getTitle(note.title, note.content);
       const created = formatDate(note.createdAt);
       const updated = formatDate(note.updatedAt);
@@ -83,14 +82,26 @@
       if (note.id === activeId) {
         li.classList.add('active');
       }
+
       li.addEventListener('click', () => {
         openNote(note.id);
       });
-      
+
+      // const listDeleteBtn = li.querySelector('.list-delete-btn');
+      // listDeleteBtn.addEventListener('click', (event) => {
+      //   event.stopPropagation();
+      //   if (!confirm('メモを削除しますか？')) return;
+      //   notes = notes.filter((n) => {
+      //     n.id !== note.id;
+      //   });
+      //   saveNotes(notes);      
+      // });
+
       elements.memoList.appendChild(li);
-      elements.listDeleteBtn = document.querySelector('.list-delete-btn');
-    });
+    }); 
   };
+
+
 
   
 
@@ -176,7 +187,6 @@
   });
   elements.search.addEventListener('input', renderList);
   elements.deleteBtn.addEventListener('click', deleteNote);
-  elements.listDeleteBtn.addEventListener('click', deleteNote);
 
   
   renderList();
