@@ -58,23 +58,26 @@
     elements.memoList.innerHTML = '';
     view.forEach((note) => {
       const li = document.createElement('li');
-      li.dataset.id = note.id;
       const title = getTitle(note.title, note.content);
       const created = formatDate(note.createdAt);
       const updated = formatDate(note.updatedAt);
 
       li.innerHTML = `
-        <div class="note-row">
-          <div class="title">
-            ${escapeHtml(title)}
+        <div class="memo-list-row">
+          <div>
+            <div class="title">
+              ${escapeHtml(title)}
+            </div>
+            <div class="meta">
+              作成: ${escapeHtml(created)}<br>
+              更新: ${escapeHtml(updated)}
+            </div>
           </div>
-          <div class="meta">
-            作成: ${escapeHtml(created)}<br>
-            更新: ${escapeHtml(updated)}
+          <div>
+            <button class="icon-btn list-delete-btn">
+              <img src="images/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+            </button>
           </div>
-          <button class="icon-btn list-delete-btn">
-            <img src="images/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
-          </button>
         </div>
       `;
       
@@ -87,23 +90,19 @@
         openNote(note.id);
       });
 
-      // const listDeleteBtn = li.querySelector('.list-delete-btn');
-      // listDeleteBtn.addEventListener('click', (event) => {
-      //   event.stopPropagation();
-      //   if (!confirm('メモを削除しますか？')) return;
-      //   notes = notes.filter((n) => {
-      //     n.id !== note.id;
-      //   });
-      //   saveNotes(notes);      
-      // });
-
+      const listDeleteBtn = li.querySelector('.list-delete-btn');
+      listDeleteBtn.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (!confirm('メモを削除しますか？')) return;
+        notes = notes.filter((n) => {
+          n.id !== note.id;
+        });
+        saveNotes(notes);
+        li.remove();
+      });
       elements.memoList.appendChild(li);
     }); 
   };
-
-
-
-  
 
   const openNote = (id) => {
     const note = notes.find((note) => {
