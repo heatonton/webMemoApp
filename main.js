@@ -24,6 +24,7 @@
     deleteBtn: document.getElementById('delete-btn'),
     search: document.getElementById('search'),
     saveNotice: document.getElementById('save-notice'),
+    charCount: document.getElementById('char-count'),
   }
 
   const STORAGE_KEY ='webMemoApp.notes';
@@ -172,11 +173,19 @@
     elements.memoArea.classList.remove('active');
   };
 
+  const updateCharCount = () => {
+    elements.charCount.textContent = elements.memoContent.value.length;
+  };
+
   elements.addBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
+    elements.addBtn.classList.add('hide');
   });
   elements.addBtn.addEventListener('click', createNote);
   elements.closeBtn.addEventListener('click', clear);
+  elements.closeBtn.addEventListener('click', () => {
+    elements.addBtn.classList.remove('hide');
+  });
   elements.saveBtn.addEventListener('click', saveMemo);
   elements.saveBtn.addEventListener('click', () => {
     elements.saveNotice.classList.add('display');
@@ -186,7 +195,8 @@
   });
   elements.search.addEventListener('input', renderList);
   elements.deleteBtn.addEventListener('click', deleteNote);
-
+  elements.memoArea.addEventListener('input', updateCharCount);
+  
   
   renderList();
 }
