@@ -99,6 +99,7 @@
           n.id !== note.id;
         });
         saveNotes(notes);
+        console.log(notes);
         li.remove();
       });
       elements.memoList.appendChild(li);
@@ -116,7 +117,9 @@
     elements.memoTitle.value = note.title || '';
     elements.memoContent.value = note.content || '';
     elements.memoArea.classList.add('active');
+    elements.addBtn.classList.add('hide');
 
+    updateCharCount();
     renderList();
   };
 

@@ -92,11 +92,12 @@ li {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
+
   width: 64px;
   height: 64px;
   background: aquamarine url('images/add_36dp_000000_FILL0_wght400_GRAD0_opsz40.svg') no-repeat center / 64px;
   border: 1px solid black;
-  border-radius: 25%;
+  border-radius: 50%;
   box-shadow: 0 5px 5px rgba(0,0,0,0.5);
   transition: transform 0.3s ease;
 }
