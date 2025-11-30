@@ -81,11 +81,6 @@
           </div>
         </div>
       `;
-      
-
-      if (note.id === activeId) {
-        li.classList.add('active');
-      }
 
       li.addEventListener('click', () => {
         openNote(note.id);
@@ -96,11 +91,10 @@
         event.stopPropagation();
         if (!confirm('メモを削除しますか？')) return;
         notes = notes.filter((n) => {
-          n.id !== note.id;
+          return n.id !== note.id;
         });
         saveNotes(notes);
-        console.log(notes);
-        li.remove();
+        renderList();
       });
       elements.memoList.appendChild(li);
     }); 
