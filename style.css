@@ -55,11 +55,16 @@ header {
   outline: none;
 }
 
+#pc-add-btn {
+  display: none;
+}
+
 input,
 textarea {
   border: 1px solid black;
   width: 100%;
   padding: 0.5rem;
+  line-height: 1.5;
 }
 
 #memo-list {
@@ -76,7 +81,6 @@ li {
   border-bottom: 1px solid #ccc;
   cursor: pointer;
   transition: transform 0.3s;
-  position: relative;
 }
 
 .title {
@@ -169,10 +173,9 @@ li {
 }
 
 #save-notice {
-  position: fixed;
-  top: 10%;
-  right: 0;
-  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   transition: opacity 0.3s;
   background: aquamarine;
   padding: 0.5rem;
@@ -190,7 +193,7 @@ li {
   }
 
   #add-btn {
-    position: static;
+    display: none;
   }
 
   .memo-list-container {
@@ -205,6 +208,16 @@ li {
     max-width: 1200px;
     padding: 2rem 1rem;
     z-index: 20;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  #pc-add-btn {
+    display: block;
+    background: aquamarine;
+    padding: 1rem 2rem 1rem 2rem;
+    font-size: 1.5rem;
+    border-radius: 1rem;
   }
   
   #logo {
@@ -217,6 +230,8 @@ li {
   }
 
   #memo-area {
+    /* display: none; */
+    visibility: hidden;
     flex: 2;
     max-width: none;
     transform: none;
@@ -224,6 +239,12 @@ li {
     padding: 150px 0 0 0;
     overflow-y: auto;
     height: 100vh;
+    z-index: 21;
+  }
+
+  #memo-area.active {
+    /* display: block; */
+    visibility: visible;
   }
 
   #memo-header {

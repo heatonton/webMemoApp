@@ -21,6 +21,7 @@
     closeBtn: document.getElementById('close-btn'),
     saveBtn: document.getElementById('save-btn'),
     addBtn: document.getElementById('add-btn'),
+    pcAddBtn: document.getElementById('pc-add-btn'),
     deleteBtn: document.getElementById('delete-btn'),
     search: document.getElementById('search'),
     saveNotice: document.getElementById('save-notice'),
@@ -100,11 +101,15 @@
     }); 
   };
 
+  const updateCharCount = () => {
+    elements.charCount.textContent = elements.memoContent.value.length;
+  };
+  
   const openNote = (id) => {
     const note = notes.find((note) => {
       return note.id === id;
     });
-
+    
     if (!note) return;
     activeId = id;
 
@@ -170,15 +175,16 @@
     elements.memoArea.classList.remove('active');
   };
 
-  const updateCharCount = () => {
-    elements.charCount.textContent = elements.memoContent.value.length;
-  };
 
   elements.addBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
     elements.addBtn.classList.add('hide');
   });
   elements.addBtn.addEventListener('click', createNote);
+  elements.pcAddBtn.addEventListener('click', createNote);
+  elements.pcAddBtn.addEventListener('click', () => {
+    elements.memoArea.classList.add('active');
+  });
   elements.closeBtn.addEventListener('click', clear);
   elements.closeBtn.addEventListener('click', () => {
     elements.addBtn.classList.remove('hide');
