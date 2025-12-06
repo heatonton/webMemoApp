@@ -22,11 +22,6 @@ body.no-scroll {
 
 /* HEADER */
 header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-
   position: fixed;
   top: 0;
   left: 50%;
@@ -52,11 +47,16 @@ header {
   padding-right: 1.5rem;
   width: 95%;
   /* margin: 0 auto; */
+  height: 100%;
   outline: none;
 }
 
 #pc-add-btn {
   display: none;
+}
+
+.test-container {
+  height: 2rem;
 }
 
 input,
@@ -66,6 +66,7 @@ textarea {
   padding: 0.5rem;
   line-height: 1.5;
 }
+
 
 #memo-list {
   margin-top: 150px;
@@ -173,13 +174,14 @@ li {
 }
 
 #save-notice {
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 0;
+  left: 40%;
   transition: opacity 0.3s;
   background: aquamarine;
   padding: 0.5rem;
   border-radius: 0.5rem;
+  opacity: 0;
 }
 
 #save-notice.display {
@@ -230,21 +232,22 @@ li {
   }
 
   #memo-area {
-    /* display: none; */
-    visibility: hidden;
+    display: none;
+    /* visibility: hidden; */
     flex: 2;
     max-width: none;
     transform: none;
     position: static;
     padding: 150px 0 0 0;
     overflow-y: auto;
-    height: 100vh;
+    height: 100dvh;
     z-index: 21;
+    transition:  0.3s;
   }
 
   #memo-area.active {
-    /* display: block; */
-    visibility: visible;
+    display: block;
+    /* visibility: visible; */
   }
 
   #memo-header {

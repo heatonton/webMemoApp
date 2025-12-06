@@ -181,7 +181,7 @@
     elements.addBtn.classList.add('hide');
   });
   elements.addBtn.addEventListener('click', createNote);
-  elements.pcAddBtn.addEventListener('click', createNote);
+  // elements.pcAddBtn.addEventListener('click', createNote);
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
   });
@@ -189,7 +189,8 @@
   elements.closeBtn.addEventListener('click', () => {
     elements.addBtn.classList.remove('hide');
   });
-  elements.saveBtn.addEventListener('click', saveMemo);
+  // elements.saveBtn.addEventListener('click', saveMemo);
+  elements.saveBtn.addEventListener('click', createNote);
   elements.saveBtn.addEventListener('click', () => {
     elements.saveNotice.classList.add('display');
     setTimeout(() => {
