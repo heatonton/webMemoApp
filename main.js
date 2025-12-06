@@ -117,6 +117,7 @@
     elements.memoContent.value = note.content || '';
     elements.memoArea.classList.add('active');
     elements.addBtn.classList.add('hide');
+    elements.pcAddBtn.classList.add('hide');
 
     updateCharCount();
     renderList();
@@ -184,10 +185,12 @@
   elements.pcAddBtn.addEventListener('click', createNote);
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
+    elements.pcAddBtn.classList.add('hide');
   });
   elements.closeBtn.addEventListener('click', clear);
   elements.closeBtn.addEventListener('click', () => {
     elements.addBtn.classList.remove('hide');
+    elements.pcAddBtn.classList.remove('hide');
   });
   elements.saveBtn.addEventListener('click', saveMemo);
   elements.saveBtn.addEventListener('click', () => {
