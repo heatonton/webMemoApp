@@ -24,36 +24,42 @@
             <h1 class="kumar-one-regular">webメモ帳</h1>
           </div>
           <input type="text" id="search">
-          <button id="pc-add-btn">新規作成</button>
-      </header>
+        </header>
+        
+        <div id="memo-list">
+          <ul></ul>
+        </div>
+      </div>
       
-      <div id="memo-list">
-        <ul></ul>
+      
+      <div id="memo-area">
+        <div id="memo-header">
+          <button class="icon-btn" id="close-btn">
+            <img src="images/close_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+          </button>
+          <input type="text" id="memo-title" placeholder="タイトル">
+          <small id="char-count">0</small>
+          <button class="icon-btn" id="save-btn">
+            <img src="images/check_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+          </button>
+          <small id="save-notice">保存しました</small>
+          <button class="icon-btn" id="delete-btn">
+            <img src="images/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
+          </button>
+        </div>
+        
+        <textarea id="memo-content" placeholder="内容"></textarea>
+        
+        <div class="explanation">
+          <button id="pc-add-btn">&plus; 作成</button>
+          <p>作成ボタンを押してメモを作成します。</p>
+          <p>メモはお使いのブラウザ上に保存されます。</p>
+        </div>
       </div>
+      
+      
     </div>
-    
-    
-    <div id="memo-area">
-      <div id="memo-header">
-        <button class="icon-btn" id="close-btn">
-          <img src="images/close_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
-        </button>
-        <input type="text" id="memo-title" placeholder="タイトル">
-        <small id="char-count">0</small>
-        <button class="icon-btn" id="save-btn">
-          <img src="images/check_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
-        </button>
-        <small id="save-notice">保存しました</small>
-        <button class="icon-btn" id="delete-btn">
-          <img src="images/delete_24dp_000000_FILL0_wght400_GRAD0_opsz24.svg">
-        </button>
-      </div>
-
-      <textarea id="memo-content" placeholder="内容"></textarea>
-    </div>
-    
     <button id="add-btn"></button>
-  </div>
 
 <script src="main.js"></script>
 </body>

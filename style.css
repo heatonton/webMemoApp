@@ -6,6 +6,25 @@
   font-style: normal;
 }
 
+.explanation {
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center; 
+}
+
+body {
+  background: #eee;
+}
+
+div {
+  background: #fff;
+}
+
 /* MEMO-LIST */
 .memo-list-container {
   max-width: 375px;
@@ -15,7 +34,7 @@
 header {
   height: 150px;
   padding: 2rem 0;
-  background: white;
+  background: #fff;
   border-bottom: 1px solid #ccc;
   text-align: center;
 }
@@ -147,7 +166,7 @@ li {
   width: 64px;
   height: 64px;
   background: aquamarine url('images/add_36dp_000000_FILL0_wght400_GRAD0_opsz40.svg') no-repeat center / 64px;
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 50%;
   box-shadow: 0 5px 5px rgba(0,0,0,0.5);
   transition: transform 0.3s;
@@ -188,15 +207,15 @@ li {
   }
   
   #memo-area {
-    display: none;
+    /* display: none; */
+    /* visibility: hidden; */
+    /* transform: scaleY(0); */
+    /* transform: translateY(-1000px); */
+    /* opacity: 0; */
     flex: 2;
     max-width: none;
-    transform: none;
-    position: static;
-  }
-  
-  #memo-area.active {
-    display: flex;
+    /* transform: none; */
+    position: relative;
   }
   
   #memo-header {
@@ -228,13 +247,17 @@ li {
   
   #pc-add-btn {
     display: block;
-    position: absolute;
-    top: 50px;
-    right: 50px;
     background: aquamarine;
     padding: 1rem 2rem 1rem 2rem;
     font-size: 1.5rem;
     border-radius: 1rem;
+    border: 1px solid #000;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s;
+  }
+
+  #pc-add-btn:hover {
+    transform: scale(1.1);
   }
 
   #pc-add-btn.hide {

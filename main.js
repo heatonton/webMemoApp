@@ -96,6 +96,7 @@
         });
         saveNotes(notes);
         renderList();
+        clear();
       });
       elements.memoList.appendChild(li);
     }); 
@@ -174,6 +175,8 @@
     elements.memoTitle.value = '';
     elements.memoContent.value = '';
     elements.memoArea.classList.remove('active');
+    elements.addBtn.classList.remove('hide');
+    elements.pcAddBtn.classList.remove('hide');
   };
 
 
