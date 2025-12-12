@@ -15,17 +15,19 @@
 
   const elements = {
     memoArea: document.getElementById('memo-area'),
-    memoList: document.querySelector('ul'),
+    memoList: document.getElementById('memo-list'),
     memoTitle: document.getElementById('memo-title'),
     memoContent: document.getElementById('memo-content'),
     closeBtn: document.getElementById('close-btn'),
     saveBtn: document.getElementById('save-btn'),
-    addBtn: document.getElementById('add-btn'),
+    spAddBtn: document.getElementById('sp-add-btn'),
     pcAddBtn: document.getElementById('pc-add-btn'),
     deleteBtn: document.getElementById('delete-btn'),
     search: document.getElementById('search'),
     saveNotice: document.getElementById('save-notice'),
     charCount: document.getElementById('char-count'),
+    explanation: document.querySelector('.explanation'),
+    memoListContainer: document.querySelector('.memo-list-container'),
   }
 
   const STORAGE_KEY ='webMemoApp.notes';
@@ -56,8 +58,19 @@
     const view = [...notes].sort((a, b) => {
       return b.updatedAt - a.updatedAt;
     }).filter((note) => getTitle(note.title, note.content).toLowerCase().includes(keyword));
-
+    
     elements.memoList.innerHTML = '';
+    if (view.length === 0) {
+      elements.memoList.textContent = '保存中のメモはありません';
+      const styleTag = document.createElement('style');
+      styleTag.textContent = `
+        memoList {
+          textAlign: center;
+        }
+      `;
+      document.head.appendChild(styleTag);
+    }
+    
     view.forEach((note) => {
       const li = document.createElement('li');
       const title = getTitle(note.title, note.content);
@@ -94,6 +107,9 @@
         notes = notes.filter((n) => {
           return n.id !== note.id;
         });
+        if (!notes) {
+          elements.memoList.textContent = '保存中のメモがありません';
+        }
         saveNotes(notes);
         renderList();
         clear();
@@ -115,11 +131,15 @@
     activeId = id;
 
     elements.memoTitle.value = note.title || '';
+    elements.memoTitle.focus();
     elements.memoContent.value = note.content || '';
-    elements.memoArea.classList.add('active');
-    elements.addBtn.classList.add('hide');
-    elements.pcAddBtn.classList.add('hide');
 
+    elements.memoArea.classList.add('active');
+    elements.spAddBtn.classList.add('hide');
+    elements.explanation.classList.add('hide');
+    if (window.innerWidth < 800) {
+      elements.memoListContainer.classList.add('no-scroll');
+    }
     updateCharCount();
     renderList();
   };
@@ -175,26 +195,25 @@
     elements.memoTitle.value = '';
     elements.memoContent.value = '';
     elements.memoArea.classList.remove('active');
-    elements.addBtn.classList.remove('hide');
-    elements.pcAddBtn.classList.remove('hide');
+    elements.memoListContainer.classList.remove('no-scroll');
+    elements.spAddBtn.classList.remove('hide');
+    elements.explanation.classList.remove('hide');
   };
 
-
-  elements.addBtn.addEventListener('click', () => {
+  elements.spAddBtn.addEventListener('click', createNote);
+  elements.spAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
-    elements.addBtn.classList.add('hide');
+    elements.spAddBtn.classList.add('hide');
+    elements.memoListContainer.classList.add('no-scroll');
   });
-  elements.addBtn.addEventListener('click', createNote);
+
   elements.pcAddBtn.addEventListener('click', createNote);
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
-    elements.pcAddBtn.classList.add('hide');
+    elements.explanation.classList.add('hide');
   });
+
   elements.closeBtn.addEventListener('click', clear);
-  elements.closeBtn.addEventListener('click', () => {
-    elements.addBtn.classList.remove('hide');
-    elements.pcAddBtn.classList.remove('hide');
-  });
   elements.saveBtn.addEventListener('click', saveMemo);
   elements.saveBtn.addEventListener('click', () => {
     elements.saveNotice.classList.add('display');

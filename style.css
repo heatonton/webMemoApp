@@ -6,19 +6,8 @@
   font-style: normal;
 }
 
-.explanation {
-  position: absolute;
-  bottom: -50%;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center; 
-}
-
-body {
-  background: #eee;
+.container {
+  height: 100%;
 }
 
 div {
@@ -29,9 +18,17 @@ div {
 .memo-list-container {
   max-width: 375px;
   margin: 0 auto;
+  height: 100dvh;
+}
+
+.memo-list-container.no-scroll {
+  overflow: hidden;
 }
 
 header {
+  position: sticky;
+  top: 0;
+  max-width: 375px;
   height: 150px;
   padding: 2rem 0;
   background: #fff;
@@ -57,7 +54,6 @@ header {
   letter-spacing: 0.05rem;
   margin-top: 1rem;
 }
-
 
 li {
   padding: 0.5rem;
@@ -138,6 +134,7 @@ li {
   transform: scale(1.2);
 }
 
+
 #save-notice {
   position: absolute;
   top: 10%;
@@ -158,7 +155,7 @@ li {
   display: none;
 }
 
-#add-btn {
+#sp-add-btn {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
@@ -172,34 +169,39 @@ li {
   transition: transform 0.3s;
 }
 
-#add-btn:hover {
+#sp-add-btn:hover {
   transform: scale(1.1);
 }
 
-#add-btn.hide {
+#sp-add-btn.hide {
+  display: none;
+}
+
+.explanation {
   display: none;
 }
 
 @media (min-width: 800px) {
+  body {
+    background: #ddd;
+  }
+
   .container {
     display: flex;
-    gap: 2rem;
     max-width: 1200px;
     margin: 0 auto;
   }
 
   /* MEMO-LIST */
   .memo-list-container {
-    padding: 0 1rem;
     flex: 1;
     overflow-y: auto;
     max-width: 1000px;
     height: 100dvh;
   }
 
-  header {
-    /* text-align: left; */
-    position: relative;
+  #memo-list {
+    padding: 0 1rem 1rem;
   }
   
   #search {
@@ -207,15 +209,10 @@ li {
   }
   
   #memo-area {
-    /* display: none; */
-    /* visibility: hidden; */
-    /* transform: scaleY(0); */
-    /* transform: translateY(-1000px); */
-    /* opacity: 0; */
     flex: 2;
     max-width: none;
-    /* transform: none; */
     position: relative;
+    padding: 0 1rem;
   }
   
   #memo-header {
@@ -233,15 +230,35 @@ li {
     height: 36px;
   }
   
-  textarea {
+  #memo-content {
     padding: 2rem;
   }
+
+  .explanation {
+  position: absolute;
+  bottom: -50%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center; 
+}
+
+.explanation.hide {
+  display: none;
+}
   
   li:hover {
-    background: rgba(0, 0, 0, 0.05);
+    background: #eee;
   }
 
-  #add-btn {
+  .memo-list-row,
+  .memo-list-row div {
+    background: transparent;
+  }
+
+  #sp-add-btn {
     display: none;
   }
   
