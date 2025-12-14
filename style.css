@@ -181,6 +181,12 @@ li {
   display: none;
 }
 
+.style {
+  text-align: center;
+  color: #555;
+  margin-top: 1rem;
+}
+
 @media (min-width: 800px) {
   body {
     background: #ddd;

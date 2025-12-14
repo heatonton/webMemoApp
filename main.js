@@ -60,15 +60,12 @@
     }).filter((note) => getTitle(note.title, note.content).toLowerCase().includes(keyword));
     
     elements.memoList.innerHTML = '';
+
     if (view.length === 0) {
       elements.memoList.textContent = '保存中のメモはありません';
-      const styleTag = document.createElement('style');
-      styleTag.textContent = `
-        memoList {
-          textAlign: center;
-        }
-      `;
-      document.head.appendChild(styleTag);
+      elements.memoList.classList.add('style');
+    } else {
+      elements.memoList.classList.remove('style');
     }
     
     view.forEach((note) => {
@@ -128,11 +125,10 @@
     });
     
     if (!note) return;
-    activeId = id;
 
     elements.memoTitle.value = note.title || '';
-    elements.memoTitle.focus();
     elements.memoContent.value = note.content || '';
+    elements.memoTitle.focus();
 
     elements.memoArea.classList.add('active');
     elements.spAddBtn.classList.add('hide');
@@ -140,16 +136,20 @@
     if (window.innerWidth < 800) {
       elements.memoListContainer.classList.add('no-scroll');
     }
+
+    activeId = id;
     updateCharCount();
     renderList();
   };
 
   const createNote = () => {
+    const title = elements.memoTitle.value;
+    const content = elements.memoContent.value;
     const now = Date.now();
     const newNote = {
-      id: String(now),
-      title: '',
-      content: '',
+      id: now,
+      title: title,
+      content: content,
       createdAt: now,
       updatedAt: now,
     };
@@ -160,7 +160,10 @@
   };
 
   const saveMemo = () => {
-    if (!activeId) return createNote();
+    if (activeId === null) {
+      createNote();
+      return;
+    }
     const idx = notes.findIndex((note) => {
       return note.id === activeId;
     });
@@ -172,7 +175,7 @@
       ...notes[idx],
       title: title,
       content: content,
-      updatedAt: Date.now(),
+      updatedAt: Date.now(), 
     };
 
     saveNotes(notes);
@@ -207,11 +210,13 @@
     elements.memoListContainer.classList.add('no-scroll');
   });
 
-  elements.pcAddBtn.addEventListener('click', createNote);
+  // elements.pcAddBtn.addEventListener('click', createNote);
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
+    elements.memoTitle.focus();
     elements.explanation.classList.add('hide');
   });
+
 
   elements.closeBtn.addEventListener('click', clear);
   elements.saveBtn.addEventListener('click', saveMemo);
@@ -227,4 +232,5 @@
   
   
   renderList();
+  console.log(activeId);
 }
