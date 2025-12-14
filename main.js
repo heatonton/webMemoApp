@@ -203,7 +203,7 @@
     elements.explanation.classList.remove('hide');
   };
 
-  elements.spAddBtn.addEventListener('click', createNote);
+  // elements.spAddBtn.addEventListener('click', createNote);
   elements.spAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
     elements.spAddBtn.classList.add('hide');
