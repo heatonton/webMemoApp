@@ -209,7 +209,6 @@
     elements.spAddBtn.classList.add('hide');
     elements.memoListContainer.classList.add('no-scroll');
   });
-
   // elements.pcAddBtn.addEventListener('click', createNote);
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
