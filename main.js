@@ -195,6 +195,8 @@
   };
 
   const clear = () => {
+
+    activeId = null;
     elements.memoTitle.value = '';
     elements.memoContent.value = '';
     elements.memoArea.classList.remove('active');
