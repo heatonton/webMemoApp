@@ -14,6 +14,7 @@
   };
 
   const elements = {
+    memoListContainer: document.getElementById('memo-list-container'),
     memoArea: document.getElementById('memo-area'),
     memoList: document.getElementById('memo-list'),
     memoTitle: document.getElementById('memo-title'),
@@ -26,8 +27,7 @@
     search: document.getElementById('search'),
     saveNotice: document.getElementById('save-notice'),
     charCount: document.getElementById('char-count'),
-    explanation: document.querySelector('.explanation'),
-    memoListContainer: document.querySelector('.memo-list-container'),
+    explanation: document.getElementById('explanation'),
   }
 
   const STORAGE_KEY ='webMemoApp.notes';
@@ -63,9 +63,9 @@
 
     if (view.length === 0) {
       elements.memoList.textContent = '保存中のメモはありません';
-      elements.memoList.classList.add('style');
+      elements.memoList.classList.add('empty-message');
     } else {
-      elements.memoList.classList.remove('style');
+      elements.memoList.classList.remove('empty-message');
     }
     
     view.forEach((note) => {
@@ -205,21 +205,18 @@
     elements.explanation.classList.remove('hide');
   };
 
-  // elements.spAddBtn.addEventListener('click', createNote);
   elements.spAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
     elements.spAddBtn.classList.add('hide');
     elements.memoListContainer.classList.add('no-scroll');
   });
-  // elements.pcAddBtn.addEventListener('click', createNote);
+
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
     elements.memoTitle.focus();
     elements.explanation.classList.add('hide');
   });
 
-
-  elements.closeBtn.addEventListener('click', clear);
   elements.saveBtn.addEventListener('click', saveMemo);
   elements.saveBtn.addEventListener('click', () => {
     elements.saveNotice.classList.add('display');
@@ -227,6 +224,8 @@
       elements.saveNotice.classList.remove('display');
     }, 1000);
   });
+  
+  elements.closeBtn.addEventListener('click', clear);
   elements.search.addEventListener('input', renderList);
   elements.deleteBtn.addEventListener('click', deleteNote);
   elements.memoArea.addEventListener('input', updateCharCount);
