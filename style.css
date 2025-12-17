@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* COMMON */
 .kumar-one-regular {
   font-family: "Kumar One", serif;
   font-weight: 400;
@@ -75,6 +76,11 @@ li {
   font-size: 0.75rem;
 }
 
+.empty-message {
+  text-align: center;
+  color: #555;
+  margin-top: 1rem;
+}
 
 /* MEMO-AREA */
 #memo-area {
@@ -161,17 +167,14 @@ li {
   display: none;
 }
 
-#explanation {
+#usage-description {
   display: none;
 }
 
-.empty-message {
-  text-align: center;
-  color: #555;
-  margin-top: 1rem;
-}
 
 @media (min-width: 800px) {
+
+  /* COMMON */
   body {
     background: #ddd;
   }
@@ -190,12 +193,21 @@ li {
     height: 100dvh;
   }
 
+  #search {
+    max-width: 400px;
+  }
+
   #memo-list {
     padding: 0 1rem 1rem;
   }
+  
+  li:hover {
+    background: #eee;
+  }
 
-  #search {
-    max-width: 400px;
+  .memo-list-row,
+  .memo-list-row div {
+    background: transparent;
   }
 
   /* MEMO-AREA */
@@ -214,6 +226,7 @@ li {
 
   #memo-content {
     overflow-y: auto;
+    padding: 2rem;
   }
 
   .icon-btn img {
@@ -230,11 +243,7 @@ li {
     transform: scale(1.2);
   }
 
-  #memo-content {
-    padding: 2rem;
-  }
-
-  #explanation {
+  #usage-description {
     position: absolute;
     bottom: -50%;
     left: 50%;
@@ -245,19 +254,11 @@ li {
     align-items: center;
   }
 
-  #explanation.hide {
+  #usage-description.hide {
     display: none;
   }
 
-  li:hover {
-    background: #eee;
-  }
-
-  .memo-list-row,
-  .memo-list-row div {
-    background: transparent;
-  }
-
+  /* ADD-BTN */
   #sp-add-btn {
     display: none;
   }

@@ -27,7 +27,7 @@
     search: document.getElementById('search'),
     saveNotice: document.getElementById('save-notice'),
     charCount: document.getElementById('char-count'),
-    explanation: document.getElementById('explanation'),
+    usageDesc: document.getElementById('usage-description'),
   }
 
   const STORAGE_KEY ='webMemoApp.notes';
@@ -132,7 +132,7 @@
 
     elements.memoArea.classList.add('active');
     elements.spAddBtn.classList.add('hide');
-    elements.explanation.classList.add('hide');
+    elements.usageDesc.classList.add('hide');
     if (window.innerWidth < 800) {
       elements.memoListContainer.classList.add('no-scroll');
     }
@@ -202,7 +202,7 @@
     elements.memoArea.classList.remove('active');
     elements.memoListContainer.classList.remove('no-scroll');
     elements.spAddBtn.classList.remove('hide');
-    elements.explanation.classList.remove('hide');
+    elements.usageDesc.classList.remove('hide');
   };
 
   elements.spAddBtn.addEventListener('click', () => {
@@ -214,7 +214,7 @@
   elements.pcAddBtn.addEventListener('click', () => {
     elements.memoArea.classList.add('active');
     elements.memoTitle.focus();
-    elements.explanation.classList.add('hide');
+    elements.usageDesc.classList.add('hide');
   });
 
   elements.saveBtn.addEventListener('click', saveMemo);
