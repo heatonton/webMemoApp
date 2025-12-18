@@ -252,6 +252,8 @@ li {
     flex-direction: column;
     gap: 2rem;
     align-items: center;
+    line-height: 1.5;
+    color: #555;
   }
 
   #usage-description.hide {
@@ -272,6 +274,7 @@ li {
     border: 1px solid #000;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s;
+    color: #000;
   }
 
   #pc-add-btn:hover {
