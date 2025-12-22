@@ -195,7 +195,6 @@
   };
 
   const clear = () => {
-
     activeId = null;
     elements.memoTitle.value = '';
     elements.memoContent.value = '';
@@ -203,6 +202,7 @@
     elements.memoListContainer.classList.remove('no-scroll');
     elements.spAddBtn.classList.remove('hide');
     elements.usageDesc.classList.remove('hide');
+    elements.charCount.textContent = '0';
   };
 
   elements.spAddBtn.addEventListener('click', () => {
@@ -230,7 +230,6 @@
   elements.deleteBtn.addEventListener('click', deleteNote);
   elements.memoArea.addEventListener('input', updateCharCount);
   
-  
+  // 初期描画
   renderList();
-  console.log(activeId);
 }
